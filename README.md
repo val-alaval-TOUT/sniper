@@ -25,6 +25,7 @@ Easily launch a new phishing site fully presented with SSL and capture credentia
  * Supports phishing 2FA tokens
  * API for integrating credentials into other applications
  * Easy to personalize using a templating framework
+ * Webhooks to alert you when a new credential is captured
 
 ## Basic Usage ##
 usage: **credsniper.py** [-h] --module MODULE [--twofactor] [--port PORT] [--ssl]
@@ -61,6 +62,7 @@ optional arguments:
 	   'api_token': 'some-random-string'
 	}
 ```  
+
 ### Modules
 All modules can be loaded by passing the `--module <name>` command to CredSniper. These are loaded from a directory inside `/modules`. CredSniper is built using [Python Flask](http://flask.pocoo.org/) and all the module HTML templates are rendered using [Jinja2](http://jinja.pocoo.org/docs/2.9/).
 
@@ -72,7 +74,10 @@ All modules can be loaded by passing the `--module <name>` command to CredSniper
 	* **modules/gmail/templates/authenticator.html**: Google Authenticator 2FA page
 	* **modules/gmail/templates/sms.html**: SMS 2FA page
 	* **modules/gmail/templates/touchscreen.html**: Phone Prompt 2FA page
-         
+
+### Webhooks
+  Webhooks can only be configured by modifying `config.py` - not on the command line. If `WEBHOOKS` is set to true, a POST request will be sent to the URL you specify, containing a custom JSON payload you specify, every time a new credential is captured.
+
 ## Installation ##
 
 ### Ubuntu 16.04
