@@ -96,8 +96,10 @@ Then, to run manually use the following commands:
 
 ```bash
 ~/$ cd CredSniper
+~/$ python3 -m easy_install pip
+~/$ python3 -m pip install -r requeriments.txt
 ~/CredSniper$ source bin/activate
-(CredSniper) ~/CredSniper$ python credsniper.py --help
+(CredSniper) ~/CredSniper$ python3 credsniper.py --help
 ```
 
 Note that Python 3 is required.

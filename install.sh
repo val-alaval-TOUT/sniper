@@ -96,6 +96,12 @@ sudo apt-get -qq update;
 echo "[*] Installing pre-reqs..."
 sudo apt-get -qq --assume-yes install python3 virtualenv gnupg certbot;
 
+echo "[*] Installing pip..."
+python3 -m easy_install pip
+
+echo "[*] Installing python requeriments..."
+python3 -m pip install -r requeriments.txt
+
 echo "[*] Creating & activating virtual environment..."
 if [ ! -f ./bin/python ]; then
     /usr/bin/virtualenv -qq -p python3 .
@@ -130,6 +136,6 @@ echo "[*]     (CredSniper) ~/CredSniper$ python credsniper.py"
 echo "[*] ###################################################"
 
 echo "[*] Launching CredSniper..."
-source ./bin/activate;python credsniper.py --module $module $ssl $twofactor --verbose --final $final --hostname $host_name
+source ./bin/activate;python3 credsniper.py --module $module $ssl $twofactor --verbose --final $final --hostname $host_name
 
 wait
